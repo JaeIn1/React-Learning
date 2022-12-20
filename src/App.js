@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import List from "./components/List";
+import Form from "./components/Form";
+import "./App.css";
+export default function App() {
+  const [todoData, setTodoDate] = useState([]);
+  const [value, setValue] = useState([]);
 
-function App() {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    let newTodo = {
+      id: Date.now(),
+      title: value,
+      completed: false,
+    };
+
+    setTodoDate((prev) => [...prev, newTodo]);
+    setValue("");
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <div className="todoBlock">
+        <div>
+          <h1>할일목록</h1>
+        </div>
+        <List todoData={todoData} setTodoDate={setTodoDate} />
+        <Form value={value} setValue={setValue} handleSubmit={handleSubmit} />
+      </div>
     </div>
   );
 }
-
-export default App;
